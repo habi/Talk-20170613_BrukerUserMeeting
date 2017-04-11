@@ -1,3 +1,5 @@
+% Compile with:
+% latexmk -pdf -pvc -interaction=nonstopmode
 \documentclass{beamer}
 \usetheme[color=screen]{UniBern}
 
@@ -18,6 +20,7 @@
 \usepackage[absolute,overlay]{textpos} %for the \source{} command
 \usepackage{gitinfo2}
 \usepackage{xspace}
+\usepackage{textcomp} % for arrows
 \usepackage{hyperref}
 
 % Some often used abbreviations
@@ -72,7 +75,7 @@
 % Format bibliography for beamer
 % http://tex.stackexchange.com/a/10686/828
 \renewbibmacro{in:}{}
-% % http://tex.stackexchange.com/a/13076/828
+% http://tex.stackexchange.com/a/13076/828
 % \AtEveryBibitem{\clearfield{title}}
 \AtEveryBibitem{\clearfield{journaltitle}}
 \AtEveryBibitem{\clearfield{pages}}
@@ -96,52 +99,139 @@
 }
 \setcounter{framenumber}{0}
 
-\begin{frame}{Contents}
+\begin{frame}
+	\frametitle{Contents}
 	\tableofcontents
 \end{frame}
 
-\renewcommand{\imsize}{0.95\textheight}
-\begin{frame}{Computed tomography}
-	\begin{columns}
-		\begin{column}{0.7\linewidth}
-			\includegraphics[width=\imsize]{img/CT_PRINCI_PB}
-				\source{\href{https://commons.wikimedia.org/wiki/File:CT_PRINCI_PB.jpg}{enwp.org/tomography}}	
-		\end{column}
-		\begin{column}{0.4\linewidth}
-			\begin{enumerate}
-				\item Object
-				\item Parallel light source
-				\item Screen
-				\item Transmitted beam
-				\item Datum circle
-				\item Origin
-				\item 1D image
-			\end{enumerate}
-		\end{column}
-	\end{columns}
+\section{Who}
+\begin{frame}
+	\frametitle{Who?}
+	\begin{itemize}
+		\item University of Bern, Switzerland
+		\item Institute of Anatomy, Group for topographic and clinical Anatomy
+		\item \uct-Team: Ruslan Hlushchuk, David Haberthür, Students
+		\item SkyScan 1272 \& 1172
+		\item Biomedical research
+	\end{itemize}
 \end{frame}
+
+\section{Why?}
+\begin{frame}
+	\frametitle{Why?}
+	\begin{itemize}
+		\item \emph{Problem:} Tumor angiogenesis/radiation therapy?
+		\pause
+		\item \emph{Solution:} Nondestructive imaging with \uct and quantitative assessment of tomographic data!
+		\item[]
+		\pause
+		\item Judah Folkman: \blockquote[\cite{Sherwood1971}]{Tumors that exist in the dormant state have not become vascularised.}
+		\item Anti-Angiogenesis as tumor therapy
+		\begin{itemize}
+			\item \href{https://clinicaltrials.gov/ct2/results?term=antiangiogenic}{\textgreater4000 clinical trials}
+			\item Results \sout{disappointing} unsatisfactory
+			\item New, powerful and simple treatment strategies are needed
+		\end{itemize}
+		\item Microbeam radiation therapy
+		\begin{itemize}
+			\item Delivery of very high dose (\SIrange{100}{5000}{\gray}) in less than \SI{1}{\second}.
+			\item \emph{Excellent} survival rate \cite{Laissue1998}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\section{How?}
+\begin{frame}
+	\frametitle{Rat brain tumors}
+	\begin{columns}
+		\begin{column}{0.5\linewidth}
+			\begin{itemize}
+				\item Induced tumors
+				\item 9L Gliosarcoma \cite{Bouchet2014}
+				\item Microbeam and broadbeam treatment vs.\ control at three time points
+				\item \uaf-filled brain vasculature
+				\item Nondestructive extraction of
+				\begin{itemize}
+					\item Vascular density
+					\item Vessel surface
+					\item Intra-tumoral microvessel density (IMD, \cite{Hasan2002})
+				\end{itemize}
+			\end{itemize}
+		\end{column}
+		\renewcommand{\imsize}{1\linewidth}
+		\begin{column}{0.29\linewidth}
+			\pgfmathsetlength{\imagewidth}{\imsize}%
+			\pgfmathsetlength{\imagescale}{\imagewidth/299}%
+			\def\x{185}% scalebar-x starting at golden ratio of image width of 299px = 185
+			\def\y{460}% scalebar-y at 90% of image height of 546px = 491
+			\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
+				\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/{{macro_brain_d24_ctrl}}}};
+				% 500px = 30.0mm > 100px = 6004um > 8px = 500um, 2px = 100um
+				%\draw[|-|,blue,thick] (179,523) -- (121,27) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{30.0}{\milli\meter} (500px) TEMPORARY!};
+				\draw[|-|] (\x,\y) -- (\x+83,\y) node [midway,above] {\SI{5}{\milli\meter}};
+				\pause
+				\draw<2>[red, thick] (203,192) circle (50);
+			\end{tikzpicture}%
+		\end{column}%
+		\begin{column}{0.29\linewidth}%
+			\pgfmathsetlength{\imagewidth}{\imsize}%
+			\pgfmathsetlength{\imagescale}{\imagewidth/299}%
+			\def\x{185}% scalebar-x starting at golden ratio of image width of 299px = 185
+			\def\y{460}% scalebar-y at 90% of image height of 511px = 460
+			\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
+				\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/{{macro_brain_d24_mrt}}}};
+				% 463px = 30.0mm > 100px = 6478um > 8px = 500um, 2px = 100um
+				%\draw[|-|,blue,thick] (163,479) -- (162,16) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{30.0}{\milli\meter} (463px) TEMPORARY!};
+				\draw[|-|] (\x,\y) -- (\x+77,\y) node [midway,above] {\SI{5}{\milli\meter}};
+				\draw<2>[red, thick] (199,187) circle (30);
+			\end{tikzpicture}%
+		\end{column}		
+	\end{columns}	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Scanning, Reconstruction \& Preparation}
+	\begin{itemize}
+		\item Scanning \& Reconstruction 
+		\begin{itemize}
+			\item SkyScan1272
+			\item 4904 \(\times\) \SI{3280}{px}, \SI{0.1}{\degree} rotation step
+			\item \SI{70}{\kilo\volt}, \SI{142}{\micro\ampere}, \SI{0.5}{\milli\meter} Al filter
+			\item Pixel size \SI{5}{\micro\meter}
+			\item Exposure \SI{3300}{\milli\second}, 3\(\times\) frame averaging, 3 connected scans\newline \textrightarrow{} \SI{\approx17}{\hour} scanning time per sample
+			\item \SI{\approx40}{\day} of continuous scanning :)
+			\item Tumor region reconstructed (NRecon 1.7.0.4, GPUReconServer 1.7.0, Ring Artifact Correction=20, Beam Hardening Correction \SI{50}{\percent}, Hamming filter)
+		\end{itemize}
+		\item Preparation
+		\begin{itemize}
+			\item Tumor ROI delineated in CTAn
+			\item Exported to PNG slices
+			\item Analysis pipeline in \href{http://github.com/habi/grenoble-brains}{Jupyter notebook with Python}
+		\end{itemize}		
+	\end{itemize}
+\end{frame}
+
+\section{Analysis \& Results}
+\begin{frame}
+	\frametitle{Overview of examples}
+	\fullframeimage{img/overviews/b65_bb_d20t10_threshold_}
+\end{frame}
+
 
 \begin{frame}
 	\frametitle{Some image}
 	\fullframeimage{img/Montage}
 \end{frame}
 
+
+\section{Summary}
 \begin{frame}
 	\frametitle{Summary}
 	\begin{itemize}
-		\item \uct is a powerful method to get both pretty and meaningful insight into a broad kind of samples
-		\item Non-destructiveness makes it a complementary method to established assessment methods (Stereology, SEM, Histology)
-		\item Three-dimensional, numerical data enables quantitative assessment of sample properties
-		\item[]
-		\pause
-		\item Come and ask us if you want to look into your samples!
+		\item Radiation therapy reduces tumor \emph{micro}-vasculature
+		\item Quantitative assessment of sample properties
 	\end{itemize}
 \end{frame}
-
-\begin{frame}
-	\frametitle{Thanks}
-	Here is just some text without too much information.
- \end{frame}
 
 \begin{frame}
 	\frametitle{Thanks}
