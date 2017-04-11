@@ -9,7 +9,7 @@
 \usepackage{microtype}
 \usepackage{textcomp}
 \usepackage[backend=biber, style=numeric, url=false, isbn=false, maxbibnames=1, sorting=none]{biblatex}
-    \addbibresource{../../Documents/library.bib}
+	\addbibresource{../../Documents/library.bib}
 \usepackage{graphicx}
 \usepackage{tikz}
 	\usetikzlibrary{arrows.meta,shapes}
@@ -20,15 +20,24 @@
 \usepackage{xspace}
 \usepackage{hyperref}
 
-% Some often used commands
-\newcommand{\imsize}{\linewidth}
+% Some often used abbreviations
+\newcommand{\imsize}{\linewidth} % globally set image width
 \newlength\imagewidth % needed for scalebars
-\newlength\imagescale % ditto
-\newcommand{\uct}{\si{\micro}CT\xspace}
-\newcommand{\uaf}{\si{\micro}AngioFil\xspace}
+\newlength\imagescale % needed for scalebars
+\newcommand{\uct}{\si{\micro}CT\xspace} % make our life easier
+\newcommand{\uaf}{\si{\micro}AngioFil\xspace} % make our life easier
+
+% Easily fill a frame with the whole image.
+% Based on http://tex.stackexchange.com/a/334758/828, http://tex.stackexchange.com/a/244103/828 and ubTitleHeight and ubFooterHeight found in the Unibe Beamer template.
+\newcommand{\fullframeimage}[1]{%
+	\begin{tikzpicture}[remember picture,overlay]%
+		\node[xshift=0,yshift=-0.085\paperheight-0.016\paperheight/2] at (current page.center){\includegraphics[width=\paperwidth]{#1}};%
+	\end{tikzpicture}%
+}
 
 % Acknowledge things in the lower right of the slide
-\newcommand{\source}[1]{%based on http://tex.stackexchange.com/a/48485/828
+% Based on http://tex.stackexchange.com/a/48485/828
+\newcommand{\source}[1]{
 	\begin{textblock*}{4cm}(8.7cm,8.6cm)%
 		\begin{beamercolorbox}[ht=0.5cm,right]{framesource}%
 			\tiny\usebeamerfont{framesource}\usebeamercolor[fg]{framesource} Source: {#1}%
@@ -51,15 +60,11 @@
 \defbeamertemplate{footline}{unibe}{%
 	\usebeamercolor[fg]{page number in head/foot}%
 	\usebeamerfont{page number in head/foot}%
-	\hspace*{\fill}%
-	\insertshortauthor%
-	\hspace*{\fill}%|\hspace*{\fill}%
-	\insertshorttitle%
-	\hspace*{\fill}%|\hspace*{\fill}%
-	v.~\gitAbbrevHash%
-	\hspace*{\fill}%|\hspace*{\fill}%
-	\insertframenumber\,/\,\insertpresentationendpage%
-	\hspace*{\fill}%
+	\hspace*{0.5cm}%
+	\insertshortauthor\xspace|\xspace\insertshorttitle\xspace|\xspace Version \gitAbbrevHash%
+	\hspace*{\fill}
+	\insertframenumber\,/\,\inserttotalframenumber%
+	\hspace*{0.5cm}%
 	\vskip2pt%
 }
 \setbeamertemplate{footline}[unibe]
@@ -77,21 +82,17 @@
 
 % Subtitle and other informations
 \title[Quantitative assessment of brain tumor vasculature]{Quantitative assessment of brain tumor radiation treatment reveals decrease in tumor-supporting vessels}
-\author[David Haberthür]{David Haberthür
-	\and Ruslan Hlushchu
-	\and Marine Potez
-	\and Audrey Bouchet
-	\and Valentin Djonov}
+\author{David Haberthür}
 \institute{Institute of Anatomy, University of Bern}
-\date{July 13, 2017\\12\textsupscript{th} microCT User Meeting}
+\date{July 13, 2017\\12\textsuperscript{th} microCT User Meeting}
 
 \begin{document}
-% Wo want no footline on the title page, http://tex.stackexchange.com/a/18829/828 helps
+% We want no footline on the title page, http://tex.stackexchange.com/a/18829/828 helps
 {%
 	\setbeamertemplate{footline}{}%
-	\begin{frame}%
-		\titlepage%
-	\end{frame}%
+\begin{frame}%
+	\titlepage%
+\end{frame}%
 }
 \setcounter{framenumber}{0}
 
@@ -122,7 +123,7 @@
 
 \begin{frame}
 	\frametitle{Some image}
-	\includegraphics[width=\paperwidth]{img/Montage}
+	\fullframeimage{img/Montage}
 \end{frame}
 
 \begin{frame}
@@ -139,10 +140,19 @@
 
 \begin{frame}
 	\frametitle{Thanks}
+	Here is just some text without too much information.
+ \end{frame}
+
+\begin{frame}
+	\frametitle{Thanks}
 	\begin{itemize}
-		\item Topographic and clinical Anatomy
-		\item Audrey Bouchet
-		\item Jean Laissue
+		\item Topographic and clinical Anatomy, namely
+		\begin{itemize}
+			\item Ruslan Hlushchuk
+			\item Marine Potez
+			\item Audrey Bouchet
+			\item Valentin Djonov
+		\end{itemize}
 		\item ESRF Grenoble
 		\item SNF
 		\pause
