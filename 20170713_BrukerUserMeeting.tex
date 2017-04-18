@@ -165,12 +165,12 @@
 			\def\x{185}% scalebar-x starting at golden ratio of image width of 299px = 185
 			\def\y{460}% scalebar-y at 90% of image height of 546px = 491
 			\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-				\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/{{macro_brain_d24_ctrl}}}};
+				\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/{{macro_brain_d24_ctrl_backoff}}}};
 				% 500px = 30.0mm > 100px = 6004um > 8px = 500um, 2px = 100um
 				%\draw[|-|,blue,thick] (179,523) -- (121,27) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{30.0}{\milli\meter} (500px) TEMPORARY!};
-				\draw[|-|] (\x,\y) -- (\x+83,\y) node [midway,above] {\SI{5}{\milli\meter}};
+				\draw[|-|, thick] (\x,\y) -- (\x+83,\y) node [midway,above] {\SI{5}{\milli\meter}};
 				\pause
-				\draw<2>[red, thick] (203,192) circle (50);
+				\draw<2>[red, thick] (187,182) circle (50);
 			\end{tikzpicture}%
 		\end{column}%
 		\begin{column}{0.29\linewidth}%
@@ -179,14 +179,14 @@
 			\def\x{185}% scalebar-x starting at golden ratio of image width of 299px = 185
 			\def\y{460}% scalebar-y at 90% of image height of 511px = 460
 			\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-				\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/{{macro_brain_d24_mrt}}}};
+				\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/{{macro_brain_d24_mrt_backoff}}}};
 				% 463px = 30.0mm > 100px = 6478um > 8px = 500um, 2px = 100um
 				%\draw[|-|,blue,thick] (163,479) -- (162,16) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{30.0}{\milli\meter} (463px) TEMPORARY!};
-				\draw[|-|] (\x,\y) -- (\x+77,\y) node [midway,above] {\SI{5}{\milli\meter}};
-				\draw<2>[red, thick] (199,187) circle (30);
+				\draw[|-|, thick] (\x,\y) -- (\x+77,\y) node [midway,above] {\SI{5}{\milli\meter}};
+				\draw<2>[red, thick] (199,187) circle (50);
 			\end{tikzpicture}%
-		\end{column}		
-	\end{columns}	
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}
@@ -207,22 +207,46 @@
 			\item Tumor ROI delineated in CTAn
 			\item Exported to PNG slices
 			\item Analysis pipeline in \href{http://github.com/habi/grenoble-brains}{Jupyter notebook with Python}
-		\end{itemize}		
+		\end{itemize}
 	\end{itemize}
 \end{frame}
 
 \section{Analysis \& Results}
 \begin{frame}
+	\frametitle{Image processing}
+	\begin{columns}
+		\begin{column}{0.5\linewidth}
+			\begin{itemize}
+				\item ROI extraction
+				\item<3-> Calculation of tumor area
+				\item<4-> Thresholding to separate blood vessels
+				\item<5-> Removal of \emph{big} structures
+				\item<6-> Euclidean distance transformation
+				\item<7-> Calculation of vessel surface
+				\item<8-> Labelling/counting objects
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.5\linewidth}
+			\includegraphics<1>[width=\imsize]{img/imageprocessing/B65_bb_D20T10_rec00003856}
+			\includegraphics<2>[width=\imsize]{img/imageprocessing/b65_bb_d20t10_rec0000_voi_1928}
+			\includegraphics<3>[width=\imsize]{img/imageprocessing/B65_bb_D20T10_hull_0143}
+			\includegraphics<4>[width=\imsize]{img/imageprocessing/B65_bb_D20T10_threshold_0143}
+			\includegraphics<5>[width=\imsize]{img/imageprocessing/B65_bb_D20T10_cleaned_0143}
+			\includegraphics<6>[width=\imsize]{img/imageprocessing/B65_bb_D20T10_edt_0143}
+			\includegraphics<7>[width=\imsize]{img/imageprocessing/B65_bb_D20T10_surface_0143}
+			\includegraphics<8>[width=\imsize]{img/imageprocessing/B65_bb_D20T10_label_0143}
+		\end{column}
+	\end{columns}
+\end{frame}
+\begin{frame}
 	\frametitle{Overview of examples}
 	\fullframeimage{img/overviews/b65_bb_d20t10_threshold_}
 \end{frame}
-
 
 \begin{frame}
 	\frametitle{Some image}
 	\fullframeimage{img/Montage}
 \end{frame}
-
 
 \section{Summary}
 \begin{frame}
