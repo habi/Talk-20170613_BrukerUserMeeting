@@ -1,6 +1,6 @@
 % Compile with:
 % latexmk -pdf -pvc -interaction=nonstopmode
-\documentclass{beamer}
+\documentclass[draft]{beamer}
 \usetheme[color=screen]{UniBern}
 
 %\setbeameroption{show notes}
@@ -17,8 +17,10 @@
 	\usetikzlibrary{arrows.meta,shapes}
 \usepackage[detect-all=true, range-phrase=--, range-units=single]{siunitx}
 \usepackage{csquotes}
+\usepackage{animate}
 \usepackage[absolute,overlay]{textpos} %for the \source{} command
 \usepackage{gitinfo2}
+\usepackage{ulem}
 \usepackage{xspace}
 \usepackage{textcomp} % for arrows
 \usepackage{hyperref}
@@ -51,13 +53,13 @@
 % define 'unibe' color
 \definecolor{unibe}{RGB}{156,189,222}
 
-% Show current section at begin of sections
-\AtBeginSection[]{
-	\begin{frame}{Outline}
-	\small
-	\tableofcontents[currentsection, hideothersubsections]
-	\end{frame} 
-}
+%% Show current section at begin of sections
+%\AtBeginSection[]{
+%	\begin{frame}{Outline}
+%	\small
+%	\tableofcontents[currentsection, hideothersubsections]
+%	\end{frame} 
+%}
 
 % Define us a custom footer
 \defbeamertemplate{footline}{unibe}{%
@@ -116,7 +118,17 @@
 	\end{itemize}
 \end{frame}
 
-\section{Why?}
+\section{What \& why?}
+\begin{frame}
+	\frametitle{What}
+	\begin{itemize}
+		\item 57099 incidences of brain and central nervous system cancer in Europe in 2012
+		\item Malignant gliomas (brain tumors) constitute a major therapeutic problem because of extremely poor prognosis
+		\item Gliomas make up \SI{30}{\percent} of all brain and central nervous system tumors as well as \SI{80}{\percent} of all malignant brain tumors \cite{Goodenberger2012}
+	\end{itemize}
+	\source{Incidence \#: \href{http://eco.iarc.fr/eucan/Cancer.aspx?Cancer=34\#tabs-both}{EUCAN}}
+\end{frame}
+
 \begin{frame}
 	\frametitle{Why?}
 	\begin{itemize}
@@ -138,6 +150,37 @@
 			\item \emph{Excellent} survival rate \cite{Laissue1998}
 		\end{itemize}
 	\end{itemize}
+	\pause
+	\begin{tikzpicture}[remember picture,overlay]
+		\node[xshift=6cm, yshift=-6cm, rotate=-45] at (current page.north west) {\huge That's the hard part!};
+	\end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Quantitative assessment}
+	\begin{itemize}
+		\item \emph{Problem} Tumor volume
+		\begin{itemize}
+			\item Assess treatment. Should shrink
+		\end{itemize}
+		\pause
+		\item \emph{Solution} (\uct) 3D data \pause
+		\begin{tikzpicture}[remember picture,overlay]
+		    \node[xshift=6cm, yshift=-4cm, rotate=-45] at (current page.north west) {\huge Easy!};
+		\end{tikzpicture}
+		\item[]	
+		\pause	
+		\item \emph{Problem} Intra-tumoral microvessel density (IMD, \cite{Hasan2002})
+		\pause
+		\item Standardized measure to assess tumor angiogenesis.
+			Done on LM slides, thus only in 2D
+		\pause
+		\item \emph{Solution} (\uct) 3D data
+		\pause
+		\begin{tikzpicture}[remember picture,overlay]
+		    \node[xshift=6cm, yshift=-7cm, rotate=-45] at (current page.north west) {\huge A bit harder\ldots};
+		\end{tikzpicture}
+	\end{itemize}
 \end{frame}
 
 \section{How?}
@@ -146,7 +189,6 @@
 	\begin{columns}
 		\begin{column}{0.5\linewidth}
 			\begin{itemize}
-				\item Induced tumors
 				\item 9L Gliosarcoma \cite{Bouchet2014}
 				\item Microbeam and broadbeam treatment vs.\ control at three time points
 				\item \uaf-filled brain vasculature
@@ -159,7 +201,7 @@
 			\end{itemize}
 		\end{column}
 		\renewcommand{\imsize}{1\linewidth}
-		\begin{column}{0.29\linewidth}
+		\begin{column}{0.27\linewidth}
 			\pgfmathsetlength{\imagewidth}{\imsize}%
 			\pgfmathsetlength{\imagescale}{\imagewidth/299}%
 			\def\x{185}% scalebar-x starting at golden ratio of image width of 299px = 185
@@ -173,7 +215,7 @@
 				\draw<2>[red, thick] (187,182) circle (50);
 			\end{tikzpicture}%
 		\end{column}%
-		\begin{column}{0.29\linewidth}%
+		\begin{column}{0.27\linewidth}%
 			\pgfmathsetlength{\imagewidth}{\imsize}%
 			\pgfmathsetlength{\imagescale}{\imagewidth/299}%
 			\def\x{185}% scalebar-x starting at golden ratio of image width of 299px = 185
@@ -211,7 +253,7 @@
 	\end{itemize}
 \end{frame}
 
-\section{Analysis \& Results}
+\section{Analysis}
 \begin{frame}
 	\frametitle{Image processing}
 	\begin{columns}
@@ -244,8 +286,36 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Some image}
-	\fullframeimage{img/Montage}
+	\frametitle{3D view: VOI}
+	\animategraphics[autoplay,palindrome,width=\imsize]{5}{movies/mov_roi/b65_bb_d20t10_rec0000_voi_0}{001}{025}
+\end{frame}
+
+\begin{frame}
+	\frametitle{3D view: Thresholded}
+	\animategraphics[autoplay,palindrome,width=\imsize]{5}{movies/mov_threshold/b65_bb_d20t10_threshold_0}{001}{025}
+\end{frame}
+
+\begin{frame}
+	\frametitle{3D view: Cleaned}
+	\animategraphics[autoplay,palindrome,width=\imsize]{5}{movies/mov_cleaned/b65_bb_d20t10_cleaned_0}{001}{025}
+\end{frame}
+
+\begin{frame}
+	\frametitle{3D view: Overlay}
+	\animategraphics[autoplay,palindrome,width=\imsize]{5}{movies/mov_overlay/b65_bb_d20t10_threshold_0}{001}{025}
+\end{frame}
+
+\section{Results}
+\begin{frame}
+	\frametitle{Tumor volume}
+	\includegraphics<1>[width=\imsize]{img/talk_tumor_volume}
+	\includegraphics<2>[width=\imsize]{img/talk_tumor_volume_day}	
+\end{frame}
+
+\begin{frame}
+	\frametitle{\(\frac{\textrm{Vessel volume}}{\textrm{Tumor volume}}\)}
+	\includegraphics<1>[width=\imsize]{img/talk_vessel_ratio}
+	\includegraphics<2>[width=\imsize]{img/talk_vessel_ratio_day}	
 \end{frame}
 
 \section{Summary}
@@ -253,6 +323,8 @@
 	\frametitle{Summary}
 	\begin{itemize}
 		\item Radiation therapy reduces tumor \emph{micro}-vasculature
+		\item Sample preparation crucial
+		\item High throughput scanning for prospective study
 		\item Quantitative assessment of sample properties
 	\end{itemize}
 \end{frame}
@@ -279,7 +351,8 @@
 
 \begin{frame}[allowframebreaks]
 	\frametitle{References}
-	\renewcommand*{\bibfont}{\scriptsize}
+	%\renewcommand*{\bibfont}{\scriptsize}
+	%\renewcommand*{\bibfont}{\footnotesize}
 	\setbeamertemplate{bibliography item}{\insertbiblabel}
 	\printbibliography
 \end{frame}
