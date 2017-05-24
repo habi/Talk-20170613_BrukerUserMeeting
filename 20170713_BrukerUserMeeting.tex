@@ -15,7 +15,7 @@
 \usepackage{graphicx}
 \usepackage{tikz}
 	\usetikzlibrary{arrows.meta,shapes}
-\usepackage[detect-all=true, range-phrase=--, range-units=single]{siunitx}
+\usepackage[detect-all=true, range-phrase=--, range-units=single, binary-units=true]{siunitx}
 \usepackage{csquotes}
 \usepackage{animate}
 \usepackage[absolute,overlay]{textpos} %for the \source{} command
@@ -27,6 +27,7 @@
 
 % Some often used abbreviations
 \newcommand{\imsize}{\linewidth} % globally set image width
+\newcommand{\everyframe}{5} % use only every nth frame for the movies
 \newlength\imagewidth % needed for scalebars
 \newlength\imagescale % needed for scalebars
 \newcommand{\uct}{\si{\micro}CT\xspace} % make our life easier
@@ -113,7 +114,7 @@
 		\item<1-> University of Bern, Switzerland
 		\item<1-> Institute of Anatomy, Group for topographic and clinical Anatomy
 		\item<1-> \uct-Team: Ruslan Hlushchuk, David Haberthür, Students
-		\only<2>{\fullframeimage{img/eye.png}}
+		\only<2>{\fullframeimage{./img/vreni_rigth-eye_Flyer_6-56um__Contrast-BusinessCard_scalebar.pdf}}
 		\item<3> SkyScan 1272 \& 1172
 		\item<3> Biomedical research
 	\end{itemize}
@@ -123,11 +124,10 @@
 \begin{frame}
 	\frametitle{What}
 	\begin{itemize}
-		\item 57099 incidences of brain and central nervous system cancer in Europe in 2012
+		\item 57099 incidences of brain and central nervous system cancer in Europe in 2012 \cite{Ferlay2013}
 		\item Malignant gliomas (brain tumors) constitute a major therapeutic problem because of extremely poor prognosis
 		\item Gliomas make up \SI{30}{\percent} of all brain and central nervous system tumors as well as \SI{80}{\percent} of all malignant brain tumors \cite{Goodenberger2012}
 	\end{itemize}
-	\source{Incidence \#: \href{http://eco.iarc.fr/eucan/Cancer.aspx?Cancer=34\#tabs-both}{EUCAN}}
 \end{frame}
 
 \begin{frame}
@@ -240,9 +240,12 @@
 			\item 4904 \(\times\) \SI{3280}{px}, \SI{0.1}{\degree} rotation step
 			\item \SI{70}{\kilo\volt}, \SI{142}{\micro\ampere}, \SI{0.5}{\milli\meter} Al filter
 			\item Pixel size \SI{5}{\micro\meter}
-			\item Exposure \SI{3300}{\milli\second}, 3\(\times\) frame averaging, 3 connected scans\newline
-				  \textrightarrow{} \SI{\approx17}{\hour} scanning time per sample\newline
-				  \SI{\approx40}{\day} of continuous scanning :)
+			\item Exposure \SI{3300}{\milli\second}, 3\(\times\) frame averaging, 3 connected scans
+			\begin{itemize}
+				\item \textrightarrow{} \SI{\approx17}{\hour} scanning time per sample
+				\item \SI{\approx40}{\day} of continuous scanning :)
+				\item (partial) reconstructions: \SI{\approx1.8}{\tera\byte} of data
+			\end{itemize}
 			\item Tumor region reconstructed% (NRecon 1.7.0.4, GPUReconServer 1.7.0, Ring Artifact Correction=20, Beam Hardening Correction \SI{50}{\percent}, Hamming filter)
 		\end{itemize}
 		\item Preparation
@@ -255,21 +258,24 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{3D view of one brain}
+	\frametitle{3D view of one sample}
 	\begin{itemize}
-		\item Control, day 20 after tumor induction, day 10 after brain extraction
+		\item Control
+		\item \SI{20}{\day} after tumor cell implantation
+		\item \SI{10}{\day} after brain extraction (no radiation treatment)
 	\end{itemize}
-	\pause
-	% full frame movie
-	\begin{tikzpicture}[remember picture,overlay]%
-		\node[xshift=0,yshift=-0.085\paperheight-0.016\paperheight/2] at (current page.center){%
-			\animategraphics[autoplay,palindrome,width=\imsize,every=5]{24}{movies/mov/b01_ctrl_d20t10_ir_rec00000}{001}{301} % 301
-		};%
-	\end{tikzpicture}%
+	\only<2>{%
+		% full frame movie
+		\begin{tikzpicture}[remember picture,overlay]%
+			\node[xshift=0,yshift=-0.085\paperheight-0.016\paperheight/2] at (current page.center){%
+				\animategraphics[autoplay,width=\imsize,every=\everyframe]{24}{movies/TumorView_mov_small/b01_ctrl_d20t10_ir_rec00000}{001}{361}%
+			};%
+		\end{tikzpicture}%
+	}%
 \end{frame}
 
 \section{Analysis}
-\begin{frame}
+\begin{frame}[t]
 	\frametitle{Image processing}
 	\begin{columns}
 		\begin{column}{0.5\linewidth}
@@ -348,37 +354,47 @@
 	\end{columns}
 \end{frame}
 
-\begin{frame}
-	\frametitle{3D view: VOI}
-	\animategraphics[autoplay,palindrome,width=\imsize,every=5]{24}{movies/mov_roi/b65_bb_d20t10_rec0000_voi_0}{001}{241} % 241
-\end{frame}
-
-\begin{frame}
-	\frametitle{3D view: Thresholded}
-	\animategraphics[autoplay,palindrome,width=\imsize,every=5]{24}{movies/mov_threshold/b65_bb_d20t10_threshold_0}{001}{241} % 241
-\end{frame}
-
-\begin{frame}
-	\frametitle{3D view: Cleaned}
-	\animategraphics[autoplay,palindrome,width=\imsize,every=5]{24}{movies/mov_cleaned/b65_bb_d20t10_cleaned_0}{001}{241} % 241
-\end{frame}
-
-\begin{frame}
-	\frametitle{3D view: Overlay}
-	\animategraphics[autoplay,palindrome,width=\imsize,every=5]{24}{movies/mov_overlay/b65_bb_d20t10_threshold_0}{001}{241} % 241
-\end{frame}
+%\begin{frame}
+%	\frametitle{3D view: VOI}
+%	\animategraphics[autoplay,palindrome,width=\imsize,every=\everyframe]{24}{movies/mov_roi/b65_bb_d20t10_rec0000_voi_0}{001}{241} % 241
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{3D view: Thresholded}
+%	\animategraphics[autoplay,palindrome,width=\imsize,every=\everyframe]{24}{movies/mov_threshold/b65_bb_d20t10_threshold_0}{001}{241} % 241
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{3D view: Cleaned}
+%	\animategraphics[autoplay,palindrome,width=\imsize,every=\everyframe]{24}{movies/mov_cleaned/b65_bb_d20t10_cleaned_0}{001}{241} % 241
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{3D view: Overlay}
+%	\animategraphics[autoplay,palindrome,width=\imsize,every=\everyframe]{24}{movies/mov_overlay/b65_bb_d20t10_threshold_0}{001}{241} % 241
+%\end{frame}
 
 \section{Results}
+\renewcommand{\imsize}{0.9\linewidth}
 \begin{frame}
 	\frametitle{Tumor volume}
+	\centering	
 	\includegraphics<1>[width=\imsize]{img/talk_tumor_volume}
 	\includegraphics<2>[width=\imsize]{img/talk_tumor_volume_day}	
 \end{frame}
 
 \begin{frame}
 	\frametitle{Vessel volume per Tumor volume}
+	\centering	
 	\includegraphics<1>[width=\imsize]{img/talk_vessel_ratio}
 	\includegraphics<2>[width=\imsize]{img/talk_vessel_ratio_day}	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Vessel surface}
+	\centering
+	\includegraphics<1>[width=\imsize]{img/talk_surface}
+	\includegraphics<2>[width=\imsize]{img/talk_surface_day}	
 \end{frame}
 
 \section{Summary}
@@ -386,6 +402,9 @@
 	\frametitle{Summary}
 	\begin{itemize}
 		\item Radiation therapy reduces tumor \emph{micro}-vasculature
+		\item Radiation therapy reduces vessel complexity (significantly smaller surface)
+		\item[]
+		\pause
 		\item Sample preparation crucial
 		\item High throughput scanning for prospective study
 		\item Quantitative assessment of sample properties
