@@ -1,6 +1,7 @@
 % Compile with:
 % latexmk -pdf -pvc -interaction=nonstopmode
-\documentclass[]{beamer}
+%\documentclass[draft]{beamer}
+\documentclass[final]{beamer}
 \usetheme[color=screen]{UniBern}
 
 %\setbeameroption{show notes}
@@ -27,7 +28,7 @@
 
 % Some often used abbreviations
 \newcommand{\imsize}{\linewidth} % globally set image width
-\newcommand{\everyframe}{5} % use only every nth frame for the movies
+\newcommand{\everyframe}{1} % use only every nth frame for the movies
 \newlength\imagewidth % needed for scalebars
 \newlength\imagescale % needed for scalebars
 \newcommand{\uct}{\si{\micro}CT\xspace} % make our life easier
@@ -37,7 +38,8 @@
 % Based on http://tex.stackexchange.com/a/334758/828, http://tex.stackexchange.com/a/244103/828 and ubTitleHeight and ubFooterHeight found in the Unibe Beamer template.
 \newcommand{\fullframeimage}[1]{%
 	\begin{tikzpicture}[remember picture,overlay]%
-		\node[xshift=0,yshift=-0.085\paperheight-0.016\paperheight/2] at (current page.center){\includegraphics[width=\paperwidth]{#1}};%
+		%\node[xshift=0,yshift=-0.085\paperheight-0.016\paperheight/2] at (current page.center){\includegraphics[width=\paperwidth]{#1}};%
+		\node[xshift=0,yshift=0] at (current page.center){\includegraphics[width=\paperwidth]{#1}};%		
 	\end{tikzpicture}%
 }
 
@@ -96,33 +98,43 @@
 % We want no footline on the title page, http://tex.stackexchange.com/a/18829/828 helps
 {%
 	\setbeamertemplate{footline}{}%
-\begin{frame}%
-	\titlepage%
-\end{frame}%
+	\begin{frame}%
+		\maketitle
+	\end{frame}%
 }
 \setcounter{framenumber}{0}
+
+\title[Quantitative assessment of brain tumor vasculature]{Quantitative assessment of brain tumor radiation treatment reveals decrease in tumor-supporting vessel complexity}
+{%
+	\setbeamertemplate{footline}{}%
+	\begin{frame}%
+		\maketitle
+	\end{frame}%
+}
+%\setcounter{framenumber}{0}
 
 \begin{frame}
 	\frametitle{Contents}
 	\tableofcontents
 \end{frame}
 
-\section{Who}
+\section{Who's talking?}
 \begin{frame}
-	\frametitle{Who?}
+	\frametitle{Who's talking?}
 	\begin{itemize}
 		\item<1-> University of Bern, Switzerland
-		\item<1-> Institute of Anatomy, Group for topographic and clinical Anatomy
-		\item<1-> \uct-Team: Ruslan Hlushchuk, David Haberthür, Students
+		\item<1-> Institute of Anatomy
+		\item<1-> Group for topographic and clinical Anatomy
+		\item<1-> \uct-Team: Ruslan Hlushchuk, David Haberthür, 2 Students
 		\only<2>{\fullframeimage{./img/vreni_rigth-eye_Flyer_6-56um__Contrast-BusinessCard_scalebar.pdf}}
 		\item<3> SkyScan 1272 \& 1172
 		\item<3> Biomedical research
 	\end{itemize}
 \end{frame}
 
-\section{What \& why?}
+\section{What's the problem \& why are the blood vessels so important?}
 \begin{frame}
-	\frametitle{What}
+	\frametitle{What's the problem?}
 	\begin{itemize}
 		\item 57099 incidences of brain and central nervous system cancer in Europe in 2012 \cite{Ferlay2013}
 		\item Malignant gliomas (brain tumors) constitute a major therapeutic problem because of extremely poor prognosis
@@ -131,12 +143,8 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Why?}
+	\frametitle{Why are blood vessels important?}
 	\begin{itemize}
-		\item \emph{Problem:} Tumor angiogenesis/radiation therapy?
-		\pause
-		\item \emph{Solution:} Nondestructive imaging with \uct and quantitative assessment of tomographic data!
-		\pause
 		\item Judah Folkman: \blockquote[\cite{Sherwood1971}]{Tumors that exist in the dormant state have not become vascularised.}
 		\item Anti-Angiogenesis as tumor therapy
 		\begin{itemize}
@@ -151,6 +159,7 @@
 		\end{itemize}
 	\end{itemize}
 	\pause
+	\pause
 	\begin{tikzpicture}[remember picture,overlay]
 		\node[xshift=6cm, yshift=-6cm, rotate=-45, fill=gray, opacity=0.618, text opacity=1] at (current page.north west) {\huge That's the hard part!};
 	\end{tikzpicture}
@@ -159,21 +168,21 @@
 \begin{frame}
 	\frametitle{Quantitative assessment}
 	\begin{itemize}
-		\item \emph{Problem} Tumor volume
+		\item \emph{Problem:} Assessing radiation treatment.
 		\begin{itemize}
-			\item Assess treatment. Should shrink
+			\item The tumor volume should decrease.
 		\end{itemize}
 		\pause
-		\item \emph{Solution} (\uct) 3D data \pause
+		\item \emph{Solution:} (\uct) 3D data \pause
 		\begin{tikzpicture}[remember picture,overlay]
     		\node[xshift=8cm, yshift=-4cm, rotate=-45, fill=gray, opacity=0.618, text opacity=1] at (current page.north west) {\huge Easy!};
 		\end{tikzpicture}
 		\item[]	
 		\pause	
-		\item \emph{Problem} Intra-tumoral microvessel density (IMD, \cite{Hasan2002})
+		\item \emph{Problem} Intra-tumoral microvessel density (IMD)
 		\begin{itemize}
-			\item Standardized measure to assess tumor angiogenesis.
-	              Usually done on LM slides, thus only in 2D
+			\item Standardized assessment of tumor angiogenesis~\cite{Hasan2002}.
+				Usually done on Light microscopy slides, thus only available in 2D.
 		\end{itemize}
 		\pause
 		\item \emph{Solution} (\uct) 3D data
@@ -184,11 +193,12 @@
 	\end{itemize}
 \end{frame}
 
-\section{How?}
+\section{How did we do it?}
+\subsection{Animals}
 \begin{frame}
 	\frametitle{Rat brain tumors}
 	\begin{columns}
-		\begin{column}{0.5\linewidth}
+		\begin{column}{0.48\linewidth}
 			\begin{itemize}
 				\item 9L Gliosarcoma \cite{Bouchet2014}
 				\item Microbeam and broadbeam treatment vs.\ control at three time points
@@ -201,7 +211,7 @@
 				\end{itemize}
 			\end{itemize}
 		\end{column}
-		\begin{column}{0.27\linewidth}
+		\begin{column}{0.24\linewidth}
 			\pgfmathsetlength{\imagewidth}{\imsize}%
 			\pgfmathsetlength{\imagescale}{\imagewidth/299}%
 			\def\x{185}% scalebar-x starting at golden ratio of image width of 299px = 185
@@ -215,7 +225,7 @@
 				\draw<2>[red, thick] (187,182) circle (50);
 			\end{tikzpicture}%
 		\end{column}%
-		\begin{column}{0.27\linewidth}%
+		\begin{column}{0.24\linewidth}%
 			\pgfmathsetlength{\imagewidth}{\imsize}%
 			\pgfmathsetlength{\imagescale}{\imagewidth/299}%
 			\def\x{185}% scalebar-x starting at golden ratio of image width of 299px = 185
@@ -231,6 +241,7 @@
 	\end{columns}
 \end{frame}
 
+\subsection{\uct}
 \begin{frame}
 	\frametitle{Scanning, Reconstruction \& Preparation}
 	\begin{itemize}
@@ -242,8 +253,8 @@
 			\item Pixel size \SI{5}{\micro\meter}
 			\item Exposure \SI{3300}{\milli\second}, 3\(\times\) frame averaging, 3 connected scans
 			\begin{itemize}
-				\item \textrightarrow{} \SI{\approx17}{\hour} scanning time per sample
-				\item \SI{\approx40}{\day} of continuous scanning :)
+				\item \SI{\approx17}{\hour} scanning time per sample
+				\item \SI{\approx40}{\day} of continuous scanning
 				\item (partial) reconstructions: \SI{\approx1.8}{\tera\byte} of data
 			\end{itemize}
 			\item Tumor region reconstructed% (NRecon 1.7.0.4, GPUReconServer 1.7.0, Ring Artifact Correction=20, Beam Hardening Correction \SI{50}{\percent}, Hamming filter)
@@ -258,27 +269,27 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{3D view of one sample}
-	\begin{itemize}
-		\item Control
-		\item \SI{20}{\day} after tumor cell implantation
-		\item \SI{10}{\day} after brain extraction (no radiation treatment)
-	\end{itemize}
-	\only<2>{%
-		% full frame movie
+	\frametitle{3D view of one sample}%
+	\begin{overprint}% Solve the jumping text problem https://tex.stackexchange.com/a/17947/828
+		\begin{itemize}%
+			\item Control%
+			\item \SI{20}{\day} after tumor cell implantation%
+			\item \SI{10}{\day} after brain extraction (no radiation treatment)%
+		\end{itemize}%
+		\onslide<2>
 		\begin{tikzpicture}[remember picture,overlay]%
 			\node[xshift=0,yshift=-0.085\paperheight-0.016\paperheight/2] at (current page.center){%
 				\animategraphics[autoplay,width=\imsize,every=\everyframe]{24}{movies/TumorView_mov_small/b01_ctrl_d20t10_ir_rec00000}{001}{361}%
 			};%
 		\end{tikzpicture}%
-	}%
+	\end{overprint}	
 \end{frame}
 
-\section{Analysis}
-\begin{frame}[t]
+\subsection{Analysis}
+\begin{frame}
 	\frametitle{Image processing}
 	\begin{columns}
-		\begin{column}{0.5\linewidth}
+		\begin{column}[T]{0.48\linewidth}
 			\begin{itemize}
 				\item<1-> ROI extraction
 				\item<3-> Calculation of tumor area
@@ -289,7 +300,7 @@
 				\item<8-> Labelling/counting objects
 			\end{itemize}
 		\end{column}
-		\begin{column}{0.5\linewidth}
+		\begin{column}[T]{0.48\linewidth}
 			\only<1>{%
 				\pgfmathsetlength{\imagewidth}{\imsize}%
 				\pgfmathsetlength{\imagescale}{\imagewidth/4228}%
@@ -384,7 +395,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Vessel volume per Tumor volume}
+	\frametitle{Vessel volume per tumor volume}
 	\centering	
 	\includegraphics<1>[width=\imsize]{img/talk_vessel_ratio}
 	\includegraphics<2>[width=\imsize]{img/talk_vessel_ratio_day}	
