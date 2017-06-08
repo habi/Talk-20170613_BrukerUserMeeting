@@ -136,9 +136,9 @@
 \begin{frame}
 	\frametitle{What's the problem?}
 	\begin{itemize}
-		\item 57099 incidences of brain and central nervous system cancer in Europe in 2012 \cite{Ferlay2013}
+		\item 57099 incidences of brain and central nervous system cancer in Europe in 2012~\cite{Ferlay2013}
 		\item Malignant gliomas (brain tumors) constitute a major therapeutic problem because of extremely poor prognosis
-		\item Gliomas make up \SI{30}{\percent} of all brain and central nervous system tumors as well as \SI{80}{\percent} of all malignant brain tumors \cite{Goodenberger2012}
+		\item Gliomas make up \SI{30}{\percent} of all brain and central nervous system tumors as well as \SI{80}{\percent} of all malignant brain tumors~\cite{Goodenberger2012}
 	\end{itemize}
 \end{frame}
 
@@ -152,17 +152,17 @@
 			\item Results \only<1>{disappointing}\only<2->{unsatisfactory}
 			\item New, powerful and simple treatment strategies are needed
 		\end{itemize}
-		\item Microbeam radiation therapy
+		\item Microbeam radiation therapy~\cite{Laissue1998}
 		\begin{itemize}
 			\item Delivery of very high dose (\SIrange{100}{5000}{\gray}) in less than \SI{1}{\second}.
-			\item Excellent survival rate \cite{Laissue1998}
+			\item Excellent survival rate
 		\end{itemize}
 	\end{itemize}
-	\pause
-	\pause
-	\begin{tikzpicture}[remember picture,overlay]
-		\node[xshift=6cm, yshift=-6cm, rotate=-45, fill=gray, opacity=0.618, text opacity=1] at (current page.north west) {\huge That's the hard part!};
-	\end{tikzpicture}
+%	\pause
+%	\pause
+%	\begin{tikzpicture}[remember picture,overlay]
+%		\node[xshift=6cm, yshift=-6cm, rotate=-45, fill=gray, opacity=0.618, text opacity=1] at (current page.north west) {\huge That's the hard part!};
+%	\end{tikzpicture}
 \end{frame}
 
 \begin{frame}
@@ -170,26 +170,27 @@
 	\begin{itemize}
 		\item \emph{Problem:} Assessing radiation treatment.
 		\begin{itemize}
-			\item The tumor volume should decrease.
+			\item Does the tumor volume decrease?
 		\end{itemize}
 		\pause
-		\item \emph{Solution:} (\uct) 3D data \pause
-		\begin{tikzpicture}[remember picture,overlay]
-    		\node[xshift=8cm, yshift=-4cm, rotate=-45, fill=gray, opacity=0.618, text opacity=1] at (current page.north west) {\huge Easy!};
-		\end{tikzpicture}
+		\item \emph{Solution:} (\uct) 3D data
+%		\pause
+%		\begin{tikzpicture}[remember picture,overlay]
+%    		\node[xshift=8cm, yshift=-4cm, rotate=-45, fill=gray, opacity=0.618, rounded corners=5, text opacity=1] at (current page.north west) {\huge Easy!};
+%		\end{tikzpicture}
 		\item[]	
 		\pause	
 		\item \emph{Problem} Intra-tumoral microvessel density (IMD)
 		\begin{itemize}
 			\item Standardized assessment of tumor angiogenesis~\cite{Hasan2002}.
-				Usually done on Light microscopy slides, thus only available in 2D.
+				Usually done on Light microscopy slides, thus only available in 2D
 		\end{itemize}
 		\pause
 		\item \emph{Solution} (\uct) 3D data
-		\pause
-		\begin{tikzpicture}[remember picture,overlay]
-		    \node[xshift=8cm, yshift=-7cm, rotate=-45, fill=gray, opacity=0.618, text opacity=1] at (current page.north west) {\huge A bit harder\ldots};
-		\end{tikzpicture}
+%		\pause
+%		\begin{tikzpicture}[remember picture,overlay]
+%		    \node[xshift=8cm, yshift=-7cm, rotate=-45, fill=unibe, rounded corners=0.5, opacity=0.618, text opacity=1] at (current page.north west) {\huge A bit harder\ldots};
+%		\end{tikzpicture}
 	\end{itemize}
 \end{frame}
 
@@ -198,20 +199,25 @@
 \begin{frame}
 	\frametitle{Rat brain tumors}
 	\begin{columns}
-		\begin{column}{0.48\linewidth}
+		\begin{column}{0.6\linewidth}
 			\begin{itemize}
-				\item 9L Gliosarcoma \cite{Bouchet2014}
-				\item Microbeam and broadbeam treatment vs.\ control at three time points
-				\item \uaf-filled brain vasculature
+				\item 9L Gliosarcoma~\cite{Bouchet2014}
+				\item Two treatments vs.\ control at three time points
+				\begin{itemize}
+					\item Classic radiation therapy \& Microbeam treatment
+					\item \SIlist{16;20;24}{\day} post tumor implantation
+				\end{itemize}
+				\item Brain vessels instilled with \uaf~\cite{Schaad2017}
 				\item Nondestructive extraction of
 				\begin{itemize}
-					\item Vascular density
+					\item Tumor vascularization\newline{}
+						(Vessel volume per tumor volume)
 					\item Vessel surface
-					\item Intra-tumoral microvessel density (IMD, \cite{Hasan2002})
+					\item Intra-tumoral microvessel density
 				\end{itemize}
 			\end{itemize}
 		\end{column}
-		\begin{column}{0.24\linewidth}
+		\begin{column}{0.21\linewidth}
 			\pgfmathsetlength{\imagewidth}{\imsize}%
 			\pgfmathsetlength{\imagescale}{\imagewidth/299}%
 			\def\x{185}% scalebar-x starting at golden ratio of image width of 299px = 185
@@ -222,10 +228,10 @@
 				%\draw[|-|,blue,thick] (179,523) -- (121,27) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{30.0}{\milli\meter} (500px) TEMPORARY!};
 				\draw[|-|, thick] (\x,\y) -- (\x+83,\y) node [midway,below] {\SI{5}{\milli\meter}};
 				\pause
-				\draw<2>[red, thick] (187,182) circle (50);
+				\draw<2>[red, ultra thick] (187,182) circle (50);
 			\end{tikzpicture}%
 		\end{column}%
-		\begin{column}{0.24\linewidth}%
+		\begin{column}{0.21\linewidth}%
 			\pgfmathsetlength{\imagewidth}{\imsize}%
 			\pgfmathsetlength{\imagescale}{\imagewidth/299}%
 			\def\x{185}% scalebar-x starting at golden ratio of image width of 299px = 185
@@ -235,7 +241,7 @@
 				% 463px = 30.0mm > 100px = 6478um > 8px = 500um, 2px = 100um
 				%\draw[|-|,blue,thick] (163,479) -- (162,16) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{30.0}{\milli\meter} (463px) TEMPORARY!};
 				\draw[|-|, thick] (\x,\y) -- (\x+77,\y) node [midway,below] {\SI{5}{\milli\meter}};
-				\draw<2>[red, thick] (199,187) circle (50);
+				\draw<2>[red, ultra thick] (199,187) circle (50);
 			\end{tikzpicture}%
 		\end{column}
 	\end{columns}
@@ -247,7 +253,7 @@
 	\begin{itemize}
 		\item Scanning \& Reconstruction 
 		\begin{itemize}
-			\item SkyScan1272
+			\item SkyScan 1272
 			\item 4904 \(\times\) \SI{3280}{px}, \SI{0.1}{\degree} rotation step
 			\item \SI{70}{\kilo\volt}, \SI{142}{\micro\ampere}, \SI{0.5}{\milli\meter} Al filter
 			\item Pixel size \SI{5}{\micro\meter}
@@ -276,12 +282,13 @@
 			\item \SI{20}{\day} after tumor cell implantation%
 			\item \SI{10}{\day} after brain extraction (no radiation treatment)%
 		\end{itemize}%
-		\onslide<2>
+		\only<2>{%
 		\begin{tikzpicture}[remember picture,overlay]%
 			\node[xshift=0,yshift=-0.085\paperheight-0.016\paperheight/2] at (current page.center){%
-				\animategraphics[autoplay,width=\imsize,every=\everyframe]{24}{movies/TumorView_mov_small/b01_ctrl_d20t10_ir_rec00000}{001}{361}%
+				\animategraphics[autoplay,width=\imsize,every=\everyframe]{24}{movies/b01_mov_small/b01_ctrl_d20t10_ir_rec00000}{001}{361}%
 			};%
 		\end{tikzpicture}%
+		}%
 	\end{overprint}	
 \end{frame}
 
@@ -294,10 +301,10 @@
 				\item<1-> ROI extraction
 				\item<3-> Calculation of tumor area
 				\item<4-> Thresholding to separate blood vessels
-				\item<5-> Removal of \emph{big} structures
+				\item<5-> Removal of \emph{big} structures \textrightarrow{} Vessel volume
 				\item<6-> Euclidean distance transformation
-				\item<7-> Calculation of vessel surface
-				\item<8-> Labelling/counting objects
+				\item<7-> Calculation of vessel surface \textrightarrow{} Vessel complexity
+				\item<8-> Labelling/counting objects \textrightarrow{} IMD
 			\end{itemize}
 		\end{column}
 		\begin{column}[T]{0.48\linewidth}
@@ -402,18 +409,29 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Vessel surface}
+	\frametitle{Vessel surface (complexity)}
 	\centering
 	\includegraphics<1>[width=\imsize]{img/talk_surface}
 	\includegraphics<2>[width=\imsize]{img/talk_surface_day}	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Intra-tumoral microvessel density}
+	\centering
+	\includegraphics<1>[width=\imsize]{img/talk_imd}
+	\includegraphics<2>[width=\imsize]{img/talk_imd_day}	
 \end{frame}
 
 \section{Summary}
 \begin{frame}
 	\frametitle{Summary}
 	\begin{itemize}
-		\item Radiation therapy reduces tumor \emph{micro}-vasculature
-		\item Radiation therapy reduces vessel complexity (significantly smaller surface)
+		\item Radiation therapy reduces
+		\begin{itemize}
+			\item Tumor \emph{micro}-vasculature
+			\item Vessel complexity (significantly smaller surface)
+			\item Intra-tumoral microvessel density
+		\end{itemize}		
 		\item[]
 		\pause
 		\item Sample preparation crucial
