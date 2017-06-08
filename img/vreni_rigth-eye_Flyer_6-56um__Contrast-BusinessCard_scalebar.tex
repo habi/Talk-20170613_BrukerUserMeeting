@@ -1,7 +1,7 @@
 \documentclass[convert]{standalone}
 \usepackage{graphicx}
 \usepackage{tikz}
-	\usetikzlibrary{spy}
+	\usetikzlibrary{spy, shadows}
 \usepackage{siunitx}
 \newcommand{\imsize}{\linewidth}
 \newlength\imagewidth % needed for scalebars
@@ -11,12 +11,12 @@
 \pgfmathsetlength{\imagewidth}{\imsize}%
 \pgfmathsetlength{\imagescale}{\imagewidth/1690}%
 \def\x{1044}% scalebar-x starting at golden ratio of image width of 1690px = 1044
-\def\y{985}% scalebar-y at 90% of image height of 1094px = 985
-\def\shadow{4}% shadow parameter for scalebar
+\def\y{1039}% scalebar-y at 90% of image height of 1094px = 985
+\def\shadow{3}% shadow parameter for scalebar
 \begin{tikzpicture}[x=\imagescale,y=-\imagescale]
 	\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{{vreni_rigth-eye_Flyer_6-56um__Contrast-BusinessCard}}};
-	\draw[|-|,thick] (\x+\shadow,\y+\shadow) -- (\x+47+47+\shadow,\y+\shadow) node [midway, above] {\SI{1}{\milli\meter}};
-	\draw[|-|,white,thick] (\x,\y) -- (\x+47+47,\y) node [midway,above] {\SI{1}{\milli\meter}};
+	\draw[|-|,thick, drop shadow] (\x+\shadow,\y+\shadow) -- (\x+47+47+47+47+47+47+47+47+47+47+\shadow,\y+\shadow) node [right] {\SI{5}{\milli\meter}};
+	\draw[|-|,white,thick] (\x,\y) -- (\x+47+47+47+47+47+47+47+47+47+47,\y) node [right] {\SI{5}{\milli\meter}};
 \end{tikzpicture}%
 %-------------
 \end{document}%
