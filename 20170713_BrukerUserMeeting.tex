@@ -28,7 +28,7 @@
 
 % Some often used abbreviations
 \newcommand{\imsize}{\linewidth} % globally set image width
-\newcommand{\everyframe}{1} % use only every nth frame for the movies
+\newcommand{\everyframe}{30} % use only every nth frame for the movies
 \newlength\imagewidth % needed for scalebars
 \newlength\imagescale % needed for scalebars
 \newcommand{\uct}{\si{\micro}CT\xspace} % make our life easier
@@ -155,7 +155,7 @@
 			\pgfmathsetlength{\imagescale}{\imagewidth/805}%
 			\def\x{497}% scalebar-x starting at golden ratio of image width of 805px = 497
 			\def\y{602}% scalebar-y at 90% of image height of 669px = 602
-			\begin{tikzpicture}[x=\imagescale,y=-\imagescale, spy using outlines={rectangle, magnification=\mag, size=\size, connect spies}]
+			\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
 				\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/{{Bouchet2015a-003}}}};
 				% 227px = 0.84mm > 100px = 371um > 135px = 500um, 27px = 100um
 				\draw[|-|,thick] (\x,\y) -- (\x+135,\y) node [right] {\SI{500}{\micro\meter}};
