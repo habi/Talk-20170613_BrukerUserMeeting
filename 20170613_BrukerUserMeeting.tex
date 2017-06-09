@@ -4,6 +4,11 @@
 \documentclass[]{beamer}
 \usetheme[color=screen]{UniBern}
 
+%\includeonlyframes{current}
+%then....
+%\begin{frame}[label=current]
+%\end{frame}
+
 %\setbeameroption{show notes}
 %\includeonlyframes{current}
 
@@ -28,7 +33,7 @@
 
 % Some often used abbreviations
 \newcommand{\imsize}{\linewidth} % globally set image width
-\newcommand{\everyframe}{50} % use only every nth frame for the movies
+\newcommand{\everyframe}{5} % use only every nth frame for the movies
 \newlength\imagewidth % needed for scalebars
 \newlength\imagescale % needed for scalebars
 \newcommand{\uct}{\si{\micro}CT\xspace} % make our life easier
@@ -142,7 +147,7 @@
 
 
 \begin{frame}
-	\frametitle{What's the problem? Why blood vessels?}
+	\frametitle{Microbeam radiation therapy}
 	\begin{columns}
 		\begin{column}{0.48\linewidth}
 			\begin{itemize}	
@@ -187,30 +192,30 @@
 \begin{frame}
 	\frametitle{Rat brain tumors}
 	\begin{columns}
-		\begin{column}{0.3\linewidth}
+		\begin{column}{0.309\linewidth}
 			\begin{itemize}
 				\item 9L Gliosarcoma induced in rat brains~\cite{Bouchet2014}
 				\item Instilled with \uaf~\cite{Schaad2017}
 			\end{itemize}
 		\end{column}
-		\begin{column}{0.65\linewidth}
+		\begin{column}{0.618\linewidth}
 			\renewcommand{\imsize}{0.5\linewidth}
 			\pgfmathsetlength{\imagewidth}{\imsize}%
 			\pgfmathsetlength{\imagescale}{\imagewidth/546}%
-			\def\x{337-40}% scalebar-x starting at golden ratio of image width of 546px = 337
-			\def\y{269}% scalebar-y at 90% of image height of 299px = 269
+			\def\x{10}% scalebar-x starting at golden ratio of image width of 546px = 337
+			\def\y{299}% scalebar-y at 90% of image height of 299px = 269
 			\begin{tikzpicture}[x=\imagescale,y=-\imagescale]%
 				\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/{{macro_brain_d24_ctrl_backoff}}}};
 				% 500px = 30.0mm > 100px = 6004um > 8px = 500um, 2px = 100um
 				\draw[|-|, thick] (\x,\y) -- (\x+83,\y) node [right] {\SI{5}{\milli\meter}};
 				\pause
-				\draw<2>[red, ultra thick] (345,187) circle (50);
+				\draw<2>[red, ultra thick] (345,187) circle (75);
 			\end{tikzpicture}%
 			\begin{tikzpicture}[x=\imagescale,y=-\imagescale]%
 				\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/{{macro_brain_d24_mrt_backoff}}}};
 				% 463px = 30.0mm > 100px = 6478um > 8px = 500um, 2px = 100um
 				\draw[|-|, thick] (\x,\y) -- (\x+77,\y) node [right] {\SI{5}{\milli\meter}};
-				\draw<2>[red, ultra thick] (322,196) circle (50);
+				\draw<2>[red, ultra thick] (350,205) circle (50);
 			\end{tikzpicture}%
 		\end{column}
 	\end{columns}
@@ -255,81 +260,116 @@
 \end{frame}
 
 \subsection{Analysis}
-\begin{frame}
+\begin{frame}[label=current]
 	\frametitle{Image processing}
 	\begin{columns}
-		\begin{column}[T]{0.48\linewidth}
+		\begin{column}[T]{0.6\linewidth}
 			\begin{itemize}
 				\item<1-> ROI extraction
 				\item<3-> Calculation of tumor area
 				\item<4-> Thresholding to separate blood vessels
-				\item<5-> Removal of \emph{big} structures \textrightarrow{} Vessel volume
-				\item<6-> Euclidean distance transformation
-				\item<7-> Calculation of vessel surface \textrightarrow{} Vessel complexity
-				\item<8-> Labeling/counting objects \textrightarrow{} IMD
+				\item<5-> Removal of \emph{large} structures \textrightarrow{} Vessel volume
+				\item<7-> Euclidean distance transformation
+				\item<8-> Calculation of vessel surface \textrightarrow{} Vessel complexity
+				\item<9-> Labeling/counting objects \textrightarrow{} IMD
 			\end{itemize}
 		\end{column}
-		\begin{column}[T]{0.48\linewidth}
+		\begin{column}[T]{0.4\linewidth}
+			\pgfmathsetlength{\imagewidth}{\imsize}%
+			\pgfmathsetlength{\imagescale}{\imagewidth/2452}%
+			\def\x{122}% scalebar-x starting at golden ratio of image width of 2452px = 1515
+			\def\y{2354}% scalebar-y at 90% of image height of 2452px = 2207	
 			\only<1>{%
-				\pgfmathsetlength{\imagewidth}{\imsize}%
-				\pgfmathsetlength{\imagescale}{\imagewidth/4228}%
-				\def\x{2613}% scalebar-x starting at golden ratio of image width of 4228px = 2613
-				\def\y{3805}% scalebar-y at 90% of image height of 4228px = 3805
 				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/imageprocessing/{{B65_bb_D20T10_rec00003856}}}};
-					% 4228px = 21.14mm > 100px = 500um > 100px = 500um, 20px = 100um
-					%\draw[|-|,blue,thick] (0,2114) -- (4228,2114) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{21.14}{\milli\meter} (4228px) TEMPORARY!};
-					\draw[|-|,white,thick] (\x,\y) -- (\x+1000,\y) node [midway,above] {\SI{5}{\milli\meter}};
+					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/imageprocessing/{{B51_bb_D16T06_rec00004794}}}};
+					%\draw[|-|,blue,thick] (0,1226) -- (2452,1226) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{24.52}{\milli\meter} (2452px) TEMPORARY!};
+					% 2452px = 24.52mm > 100px = 1000um > 50px = 500um, 10px = 100um
+					\draw[|-|,white,thick] (\x,\y) -- (\x+500,\y) node [right] {\SI{5}{\milli\meter}};
+				\end{tikzpicture}%
+				}
+			\only<2>{%
+				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
+					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/imageprocessing/{{b51_bb_d16t06_rec0000_voi_4794}}}};
+					\draw[|-|,white,thick] (\x,\y) -- (\x+500,\y) node [right] {\SI{5}{\milli\meter}};
 				\end{tikzpicture}%
 				}
 			\pgfmathsetlength{\imagewidth}{\imsize}%
-			\pgfmathsetlength{\imagescale}{\imagewidth/740}%
-			\def\x{457}% scalebar-x starting at golden ratio of image width of 740px = 457
-			\def\y{527}% scalebar-y at 90% of image height of 586px = 527	
-			\only<2>{%
-				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/imageprocessing/{{b65_bb_d20t10_rec0000_voi_1928}}}};
-					% 740px = 3.7mm > 100px = 500um > 100px = 500um, 20px = 100um
-					%\draw[|-|,blue,thick] (0,293) -- (740,293) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{3.7}{\milli\meter} (740px) TEMPORARY!};
-					\draw[|-|,white,thick] (\x,\y) -- (\x+100,\y) node [right] {\SI{500}{\micro\meter}};
-				\end{tikzpicture}%
-				}
+			\pgfmathsetlength{\imagescale}{\imagewidth/1802}%
+			\def\x{90}% scalebar-x starting at golden ratio of image width of 1802px = 1114
+			\def\y{1256}% scalebar-y at 90% of image height of 1322px = 1190
 			\only<3>{%
 				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/imageprocessing/{{B65_bb_D20T10_hull_0143}}}};
+					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/imageprocessing/{{B51_bb_D16T06_hull_0666}}}};
+					% 1324px = 6.62mm > 100px = 500um > 100px = 500um, 20px = 100um
+					%\draw[|-|,blue,thick] (0,605) -- (1324,605) node [sloped,midway,above,fill=white,semitransparent,text opacity=1] {\SI{6.62}{\milli\meter} (1324px) TEMPORARY!};
 					\draw[|-|,white,thick] (\x,\y) -- (\x+100,\y) node [right] {\SI{500}{\micro\meter}};
 				\end{tikzpicture}%
-				}
+				\\
+				\begin{tikzpicture}[remember picture,overlay]%
+					\node[xshift=0.309\paperwidth,yshift=0.25\paperheight] at (current page.south west){%
+						%\includegraphics[width=0.5\paperwidth]{./movies/b51_hull/b51_bb_d16t06_threshold_0001}%
+						\animategraphics[autoplay,width=0.5\paperwidth,every=\everyframe]{24}{./movies/b51_hull/b51_bb_d16t06_threshold_0}{001}{361}%
+						};%
+				\end{tikzpicture}%
+			}
 			\only<4>{%
 				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/imageprocessing/{{B65_bb_D20T10_threshold_0143}}}};
+					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/imageprocessing/{{B51_bb_D16T06_threshold_0666}}}};
 					\draw[|-|,white,thick] (\x,\y) -- (\x+100,\y) node [right] {\SI{500}{\micro\meter}};
 				\end{tikzpicture}%
-				}
+				\\
+				\begin{tikzpicture}[remember picture,overlay]%
+					\node[xshift=0.309\paperwidth,yshift=0.25\paperheight] at (current page.south west){%
+						%\includegraphics[width=0.5\paperwidth]{./movies/b51_hull/b51_bb_d16t06_threshold_0001}%
+						\animategraphics[autoplay,width=0.5\paperwidth,every=\everyframe]{24}{./movies/b51_threshold/b51_bb_d16t06_threshold_0}{001}{361}%				
+					};%
+				\end{tikzpicture}%
+
+			}
 			\only<5>{%
 				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/imageprocessing/{{B65_bb_D20T10_cleaned_0143}}}};
+					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/imageprocessing/{{B51_bb_D16T06_cleaned_0666}}}};
 					\draw[|-|,white,thick] (\x,\y) -- (\x+100,\y) node [right] {\SI{500}{\micro\meter}};
 				\end{tikzpicture}%
-				}
+				\\
+				\begin{tikzpicture}[remember picture,overlay]%
+					\node[xshift=0.309\paperwidth,yshift=0.25\paperheight] at (current page.south west){%
+						%\includegraphics[width=0.5\paperwidth]{./movies/b51_hull/b51_bb_d16t06_threshold_0001}%
+						\animategraphics[autoplay,width=0.5\paperwidth,every=\everyframe]{24}{./movies/b51_overlay/b51_bb_d16t06_threshold_0}{001}{361}%				
+						};%
+				\end{tikzpicture}%
+			}%
 			\only<6>{%
 				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/imageprocessing/{{B65_bb_D20T10_edt_0143}}}};
+					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/imageprocessing/{{B51_bb_D16T06_cleaned_0666}}}};
 					\draw[|-|,white,thick] (\x,\y) -- (\x+100,\y) node [right] {\SI{500}{\micro\meter}};
 				\end{tikzpicture}%
-				}
+				\\
+				\begin{tikzpicture}[remember picture,overlay]%
+					\node[xshift=0.309\paperwidth,yshift=0.25\paperheight] at (current page.south west){%
+						%\includegraphics[width=0.5\paperwidth]{./movies/b51_hull/b51_bb_d16t06_threshold_0001}%
+						\animategraphics[autoplay,width=0.5\paperwidth,every=\everyframe]{24}{./movies/b51_cleaned/b51_bb_d16t06_threshold_0}{001}{361}%				
+						};%
+				\end{tikzpicture}%
+			}%			
 			\only<7>{%
 				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/imageprocessing/{{B65_bb_D20T10_surface_0143}}}};
+					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/imageprocessing/{{B51_bb_D16T06_edtIJ_0666}}}};
 					\draw[|-|,white,thick] (\x,\y) -- (\x+100,\y) node [right] {\SI{500}{\micro\meter}};
 				\end{tikzpicture}%
-				}
+			}%
 			\only<8>{%
 				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/imageprocessing/{{B65_bb_D20T10_label_0143}}}};
+					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/imageprocessing/{{B51_bb_D16T06_surfaceIJ_0666}}}};
 					\draw[|-|,white,thick] (\x,\y) -- (\x+100,\y) node [right] {\SI{500}{\micro\meter}};
 				\end{tikzpicture}%
-				}																					
+			}%
+			\only<9>{%
+				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
+					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/imageprocessing/{{B51_bb_D16T06_imdIJ_0666}}}};
+					\draw[|-|,white,thick] (\x,\y) -- (\x+100,\y) node [right] {\SI{500}{\micro\meter}};
+				\end{tikzpicture}%
+			}%			
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -377,22 +417,27 @@
 
 \begin{frame}
 	\frametitle{Thanks}
+	\begin{columns}
+		\begin{column}{0.48\linewidth}
 	\begin{itemize}
-		\item Topographic and clinical Anatomy, namely
+		\item<1-> Topographic and clinical Anatomy, namely
 		\begin{itemize}
-			\item Ruslan Hlushchuk
-			\item Marine Potez
-			\item Audrey Bouchet
-			\item Valentin Djonov
+			\item<1-> Ruslan Hlushchuk
+			\item<1-> Marine Potez
+			\item<1-> Audrey Bouchet
+			\item<1-> Valentin Djonov
 		\end{itemize}
-		\item ESRF Grenoble
-		\item SNF
-		\pause
-		\item You, for listening
+		\item<1-> ESRF Grenoble
+		\item<1-> SNF
+		\item<2-> You, for listening
 		\item[]
-		\pause
-		\item Questions?
+		\item<3-> Questions?
 	\end{itemize}
+		\end{column}
+		\begin{column}{0.48\linewidth}
+			\includegraphics<1->[width=0.9\linewidth]{./img/ana}
+		\end{column}	
+	\end{columns}	
 \end{frame}
 
 \begin{frame}
