@@ -112,7 +112,6 @@
 %	\tableofcontents
 %\end{frame}
 
-
 \section{Who's talking?}
 \begin{frame}
 	\frametitle{Who's talking?}
@@ -133,11 +132,12 @@
 \begin{frame}
 	\frametitle{What's the problem? Why blood vessels?}
 	\begin{itemize}
-		\item Malignant gliomas (brain tumors) constitute a major therapeutic problem because of extremely poor prognosis; only \SI{5}{\percent} survival rate in 5 years.
-		\newline
-		Small increases in survival rate are significant
+		\item Malignant gliomas (brain tumors) constitute a major therapeutic problem because of extremely poor prognosis; only \SI{5}{\percent} survival rate in 5 years
+		\item Small increases in survival rate are significant
 		\item Gliomas make up \SI{30}{\percent} of all brain and central nervous system tumors as well as \SI{80}{\percent} of all malignant brain tumors~\cite{Goodenberger2012}
 		\item \num{\approx 57000} incidences of brain and central nervous system cancer in Europe in 2012~\cite{Ferlay2013}
+		\item[]
+		\pause
 		\item New, powerful and simple treatment strategies are needed
 	\end{itemize}
 \end{frame}
@@ -180,7 +180,7 @@
 			\item Intra-tumoral microvessel density (IMD, standardized assessment of tumor angiogenesis~\cite{Hasan2002})
 		\end{itemize}
 		\pause
-		\item \emph{Solution} (\uct) 3D data
+		\item \emph{Solution}: (\uct) 3D data
 	\end{itemize}
 \end{frame}
 
@@ -205,7 +205,6 @@
 				\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/{{macro_brain_d24_ctrl_backoff}}}};
 				% 500px = 30.0mm > 100px = 6004um > 8px = 500um, 2px = 100um
 				\draw[|-|, thick] (\x,\y) -- (\x+83,\y) node [right] {\SI{5}{\milli\meter}};
-				\pause
 				\draw<2>[red, ultra thick] (345,187) circle (75);
 			\end{tikzpicture}%
 			\begin{tikzpicture}[x=\imagescale,y=-\imagescale]%
