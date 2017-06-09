@@ -1,7 +1,7 @@
 % Compile with:
 % latexmk -pdf -pvc -interaction=nonstopmode
 %\documentclass[draft]{beamer}
-\documentclass[draft]{beamer}
+\documentclass[]{beamer}
 \usetheme[color=screen]{UniBern}
 
 %\setbeameroption{show notes}
@@ -19,10 +19,10 @@
 \usepackage[detect-all=true, range-phrase=--, range-units=single, binary-units=true]{siunitx}
 \usepackage{csquotes}
 \usepackage{animate}
+\usepackage[absolute,overlay]{textpos} %for the \source{} command
 \usepackage{gitinfo2}
 \usepackage{ulem}
 \usepackage{xspace}
-\usepackage[absolute,overlay]{textpos} %for the \source{} command
 \usepackage{textcomp} % for arrows
 \usepackage{hyperref}
 
@@ -36,25 +36,25 @@
 
 % Easily fill a frame with the whole image.
 % Based on http://tex.stackexchange.com/a/334758/828, http://tex.stackexchange.com/a/244103/828 and ubTitleHeight and ubFooterHeight found in the Unibe Beamer template.
-\newcommand{\fullframeimage}[1]{
+\newcommand{\fullframeimage}[1]{%
 	\begin{tikzpicture}[remember picture,overlay]%
 		%\node[xshift=0,yshift=-0.085\paperheight-0.016\paperheight/2] at (current page.center){\includegraphics[width=\paperwidth]{#1}};%
 		\node[xshift=0,yshift=0] at (current page.center){\includegraphics[width=\paperwidth]{#1}};%		
 	\end{tikzpicture}%
 }
 
+% define 'unibe' color
+\definecolor{unibe}{RGB}{156,189,222}
+
 % Acknowledge things in the lower right of the slide
 % Based on http://tex.stackexchange.com/a/48485/828
-\newcommand{\source}[1]{
+\newcommand{\source}[1]{%
 	\begin{textblock*}{4cm}(8.7cm,8.6cm)%
 		\begin{beamercolorbox}[ht=0.5cm,right]{framesource}%
-			\tiny\usebeamerfont{framesource}\usebeamercolor[fg]{framesource} Source: {#1}%
+			\tiny\usebeamerfont{framesource}\usebeamercolor[fg]{framesource} {#1}%
 		\end{beamercolorbox}%
 	\end{textblock*}%
 }
-
-% define 'unibe' color
-\definecolor{unibe}{RGB}{156,189,222}
 
 % Define us a custom footer
 \defbeamertemplate{footline}{unibe}{%
@@ -110,6 +110,7 @@
 %	\tableofcontents
 %\end{frame}
 
+
 \section{Who's talking?}
 \begin{frame}
 	\frametitle{Who's talking?}
@@ -121,7 +122,8 @@
 		\item SkyScan 1272 \& 1172
 		\item Biomedical research
 		\pause
-		\fullframeimage{./img/vreni_rigth-eye_Flyer_6-56um__Contrast-BusinessCard_scalebar.pdf}
+		%\includegraphics[width=\imsize]{img/vreni_rigth-eye_Flyer_6-56um__Contrast-BusinessCard.png}
+		\fullframeimage{img/vreni_rigth-eye_Flyer_6-56um__Contrast-BusinessCard_scalebar}
 	\end{itemize}
 \end{frame}
 
@@ -129,19 +131,20 @@
 \begin{frame}
 	\frametitle{What's the problem? Why blood vessels?}
 	\begin{itemize}
-		\item Malignant gliomas (brain tumors) constitute a major therapeutic problem because of extremely poor prognosis; only \SI{5}{\percent} survival rate in \SI{5}{\year}
+		\item Malignant gliomas (brain tumors) constitute a major therapeutic problem because of extremely poor prognosis; only \SI{5}{\percent} survival rate in 5 years.
 		\textrightarrow{}
 		Small increases in survival rate are significant.
 		\item Gliomas make up \SI{30}{\percent} of all brain and central nervous system tumors as well as \SI{80}{\percent} of all malignant brain tumors~\cite{Goodenberger2012}
-		\item nearly \num{\approx 57000} incidences of brain and central nervous system cancer in Europe in 2012~\cite{Ferlay2013}		
-		\item New, powerful and simple treatment strategies are needed!
+		\item nearly \num{\approx 57000} incidences of brain and central nervous system cancer in Europe in 2012~\cite{Ferlay2013}
+		\item New, powerful and simple treatment strategies are needed
 	\end{itemize}
 \end{frame}
+
 
 \begin{frame}
 	\frametitle{What's the problem? Why blood vessels?}
 	\begin{columns}
-		\begin{column}{0.618\linewidth}
+		\begin{column}{0.48\linewidth}
 			\begin{itemize}	
 				\item Microbeam radiation therapy~\cite{Laissue1998}
 				\begin{itemize}
@@ -150,15 +153,15 @@
 				\end{itemize}
 			\end{itemize}
 		\end{column}
-		\begin{column}{0.309\linewidth}
+		\begin{column}{0.48\linewidth}
 			\pgfmathsetlength{\imagewidth}{\imsize}%
 			\pgfmathsetlength{\imagescale}{\imagewidth/805}%
-			\def\x{497}% scalebar-x starting at golden ratio of image width of 805px = 497
+			\def\x{100}% scalebar-x starting at golden ratio of image width of 805px = 497
 			\def\y{602}% scalebar-y at 90% of image height of 669px = 602
-			\begin{tikzpicture}[x=\imagescale,y=-\imagescale, spy using outlines={rectangle, magnification=\mag, size=\size, connect spies}]
+			\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
 				\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/{{Bouchet2015a-003}}}};
 				% 227px = 0.84mm > 100px = 371um > 135px = 500um, 27px = 100um
-				\draw[|-|,thick] (\x,\y) -- (\x+135,\y) node [right] {\SI{500}{\micro\meter}};
+				\draw[|-|,white,thick] (\x,\y) -- (\x+135,\y) node [right] {\SI{500}{\micro\meter}};
 			\end{tikzpicture}%
 		\end{column}		
 	\end{columns}
