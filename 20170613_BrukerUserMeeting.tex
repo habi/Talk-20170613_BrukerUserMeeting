@@ -4,13 +4,10 @@
 \documentclass[]{beamer}
 \usetheme[color=screen]{UniBern}
 
-%\includeonlyframes{current}
+\includeonlyframes{current}
 %then....
 %\begin{frame}[label=current]
 %\end{frame}
-
-%\setbeameroption{show notes}
-%\includeonlyframes{current}
 
 \usepackage{lmodern}
 \usepackage[english]{babel}
@@ -33,7 +30,7 @@
 
 % Some often used abbreviations
 \newcommand{\imsize}{\linewidth} % globally set image width
-\newcommand{\everyframe}{5} % use only every nth frame for the movies
+\newcommand{\everyframe}{25} % use only every nth frame for the movies
 \newlength\imagewidth % needed for scalebars
 \newlength\imagescale % needed for scalebars
 \newcommand{\uct}{\si{\micro}CT\xspace} % make our life easier
@@ -260,7 +257,7 @@
 \end{frame}
 
 \subsection{Analysis}
-\begin{frame}[label=current]
+\begin{frame}
 	\frametitle{Image processing}
 	\begin{columns}
 		\begin{column}[T]{0.6\linewidth}
@@ -307,8 +304,7 @@
 				\\
 				\begin{tikzpicture}[remember picture,overlay]%
 					\node[xshift=0.309\paperwidth,yshift=0.25\paperheight] at (current page.south west){%
-						%\includegraphics[width=0.5\paperwidth]{./movies/b51_hull/b51_bb_d16t06_threshold_0001}%
-						\animategraphics[autoplay,width=0.5\paperwidth,every=\everyframe]{24}{./movies/b51_hull/b51_bb_d16t06_threshold_0}{001}{361}%
+						\animategraphics[autoplay,palindrome,width=0.5\paperwidth,every=\everyframe]{24}{./movies/b51_hull/b51_bb_d16t06_threshold_0}{001}{361}%
 						};%
 				\end{tikzpicture}%
 			}
@@ -320,8 +316,7 @@
 				\\
 				\begin{tikzpicture}[remember picture,overlay]%
 					\node[xshift=0.309\paperwidth,yshift=0.25\paperheight] at (current page.south west){%
-						%\includegraphics[width=0.5\paperwidth]{./movies/b51_hull/b51_bb_d16t06_threshold_0001}%
-						\animategraphics[autoplay,width=0.5\paperwidth,every=\everyframe]{24}{./movies/b51_threshold/b51_bb_d16t06_threshold_0}{001}{361}%				
+						\animategraphics[autoplay,palindrome,width=0.5\paperwidth,every=\everyframe]{24}{./movies/b51_threshold/b51_bb_d16t06_threshold_0}{001}{361}%				
 					};%
 				\end{tikzpicture}%
 
@@ -334,8 +329,7 @@
 				\\
 				\begin{tikzpicture}[remember picture,overlay]%
 					\node[xshift=0.309\paperwidth,yshift=0.25\paperheight] at (current page.south west){%
-						%\includegraphics[width=0.5\paperwidth]{./movies/b51_hull/b51_bb_d16t06_threshold_0001}%
-						\animategraphics[autoplay,width=0.5\paperwidth,every=\everyframe]{24}{./movies/b51_overlay/b51_bb_d16t06_threshold_0}{001}{361}%				
+						\animategraphics[autoplay,palindrome,width=0.5\paperwidth,every=\everyframe]{24}{./movies/b51_overlay/b51_bb_d16t06_threshold_0}{001}{361}%				
 						};%
 				\end{tikzpicture}%
 			}%
@@ -347,20 +341,19 @@
 				\\
 				\begin{tikzpicture}[remember picture,overlay]%
 					\node[xshift=0.309\paperwidth,yshift=0.25\paperheight] at (current page.south west){%
-						%\includegraphics[width=0.5\paperwidth]{./movies/b51_hull/b51_bb_d16t06_threshold_0001}%
-						\animategraphics[autoplay,width=0.5\paperwidth,every=\everyframe]{24}{./movies/b51_cleaned/b51_bb_d16t06_threshold_0}{001}{361}%				
+						\animategraphics[autoplay,palindrome,width=0.5\paperwidth,every=\everyframe]{24}{./movies/b51_cleaned/b51_bb_d16t06_threshold_0}{001}{361}%				
 						};%
 				\end{tikzpicture}%
 			}%			
 			\only<7>{%
 				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/imageprocessing/{{B51_bb_D16T06_edtIJ_0666}}}};
+					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/imageprocessing/{{B51_bb_D16T06_edt_0666}}}};
 					\draw[|-|,white,thick] (\x,\y) -- (\x+100,\y) node [right] {\SI{500}{\micro\meter}};
 				\end{tikzpicture}%
 			}%
 			\only<8>{%
 				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/imageprocessing/{{B51_bb_D16T06_surfaceIJ_0666}}}};
+					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{./img/imageprocessing/{{B51_bb_D16T06_surface_0666}}}};
 					\draw[|-|,white,thick] (\x,\y) -- (\x+100,\y) node [right] {\SI{500}{\micro\meter}};
 				\end{tikzpicture}%
 			}%
@@ -435,7 +428,7 @@
 	\end{itemize}
 		\end{column}
 		\begin{column}{0.48\linewidth}
-			\includegraphics<1->[width=0.9\linewidth]{./img/ana}
+			\includegraphics<1->[width=\linewidth]{./img/ana}
 		\end{column}	
 	\end{columns}	
 \end{frame}
