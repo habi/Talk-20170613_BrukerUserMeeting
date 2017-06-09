@@ -4,7 +4,7 @@
 \documentclass[]{beamer}
 \usetheme[color=screen]{UniBern}
 
-\includeonlyframes{current}
+%\includeonlyframes{current}
 %then....
 %\begin{frame}[label=current]
 %\end{frame}
@@ -30,7 +30,7 @@
 
 % Some often used abbreviations
 \newcommand{\imsize}{\linewidth} % globally set image width
-\newcommand{\everyframe}{25} % use only every nth frame for the movies
+\newcommand{\everyframe}{1} % use only every nth frame for the movies
 \newlength\imagewidth % needed for scalebars
 \newlength\imagescale % needed for scalebars
 \newcommand{\uct}{\si{\micro}CT\xspace} % make our life easier
@@ -134,10 +134,10 @@
 	\frametitle{What's the problem? Why blood vessels?}
 	\begin{itemize}
 		\item Malignant gliomas (brain tumors) constitute a major therapeutic problem because of extremely poor prognosis; only \SI{5}{\percent} survival rate in 5 years.
-		\textrightarrow{}
-		Small increases in survival rate are significant.
+		\newline
+		Small increases in survival rate are significant
 		\item Gliomas make up \SI{30}{\percent} of all brain and central nervous system tumors as well as \SI{80}{\percent} of all malignant brain tumors~\cite{Goodenberger2012}
-		\item nearly \num{\approx 57000} incidences of brain and central nervous system cancer in Europe in 2012~\cite{Ferlay2013}
+		\item \num{\approx 57000} incidences of brain and central nervous system cancer in Europe in 2012~\cite{Ferlay2013}
 		\item New, powerful and simple treatment strategies are needed
 	\end{itemize}
 \end{frame}
@@ -146,7 +146,7 @@
 \begin{frame}
 	\frametitle{Microbeam radiation therapy}
 	\begin{columns}
-		\begin{column}{0.48\linewidth}
+		\begin{column}{0.4\linewidth}
 			\begin{itemize}	
 				\item Microbeam radiation therapy~\cite{Laissue1998}
 				\begin{itemize}
@@ -155,7 +155,7 @@
 				\end{itemize}
 			\end{itemize}
 		\end{column}
-		\begin{column}{0.48\linewidth}
+		\begin{column}{0.6\linewidth}
 			\pgfmathsetlength{\imagewidth}{\imsize}%
 			\pgfmathsetlength{\imagescale}{\imagewidth/805}%
 			\def\x{100}% scalebar-x starting at golden ratio of image width of 805px = 497
@@ -251,7 +251,7 @@
 		\end{itemize}%
 		\begin{tikzpicture}[remember picture,overlay]%
 			\node[xshift=0,yshift=-0.085\paperheight-0.016\paperheight/2] at (current page.center){%
-				\animategraphics[autoplay,width=\paperwidth,every=\everyframe]{24}{movies/b01_mov_small/b01_ctrl_d20t10_ir_rec00000}{001}{361}%
+				\animategraphics[autoplay,palindrome,width=\paperwidth,every=\everyframe]{24}{movies/b01_mov_small/b01_ctrl_d20t10_ir_rec00000}{001}{361}%
 			};%
 		\end{tikzpicture}%
 \end{frame}
