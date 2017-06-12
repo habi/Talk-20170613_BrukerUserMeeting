@@ -1,7 +1,7 @@
 % Compile with:
 % latexmk -pdf -pvc -interaction=nonstopmode
 %\documentclass[draft]{beamer}
-\documentclass[]{beamer}
+\documentclass[final]{beamer}
 \usetheme[color=screen]{UniBern}
 
 %\includeonlyframes{current}
@@ -17,15 +17,12 @@
 	\addbibresource{../../Documents/library.bib}
 \usepackage{graphicx}
 \usepackage{tikz}
-	\usetikzlibrary{arrows.meta,shapes}
 \usepackage[detect-all=true, range-phrase=--, range-units=single, binary-units=true]{siunitx}
-\usepackage{csquotes}
 \usepackage{animate}
 \usepackage[absolute,overlay]{textpos} %for the \source{} command
 \usepackage{gitinfo2}
 \usepackage{ulem}
 \usepackage{xspace}
-\usepackage{textcomp} % for arrows
 \usepackage{hyperref}
 
 % Some often used abbreviations
@@ -118,7 +115,7 @@
 	\begin{itemize}
 		\item University of Bern, Switzerland
 		\item Institute of Anatomy
-		\item Group for topographic and clinical Anatomy
+		\item Group for topographic and clinical anatomy
 		\item \uct-Team: Ruslan Hlushchuk, David Haberthür, 2 Students
 		\item SkyScan 1272 \& 1172
 		\item Biomedical research
@@ -130,32 +127,32 @@
 
 \section{What's the problem \& why are the blood vessels so important?}
 \begin{frame}
-	\frametitle{What's the problem? Why blood vessels?}
+	\frametitle{What's the problem?}
 	\begin{itemize}
 		\item Malignant gliomas (brain tumors) constitute a major therapeutic problem because of extremely poor prognosis; only \SI{5}{\percent} survival rate in 5 years
-		\item Small increases in survival rate are significant
 		\item Gliomas make up \SI{30}{\percent} of all brain and central nervous system tumors as well as \SI{80}{\percent} of all malignant brain tumors~\cite{Goodenberger2012}
 		\item \num{\approx 57000} incidences of brain and central nervous system cancer in Europe in 2012~\cite{Ferlay2013}
 		\item[]
 		\pause
+		\item Small increases in survival rate become significant
 		\item New, powerful and simple treatment strategies are needed
 	\end{itemize}
 \end{frame}
 
-
 \begin{frame}
-	\frametitle{Microbeam radiation therapy}
+	\frametitle{Why target blood vessels?}
 	\begin{columns}
-		\begin{column}{0.4\linewidth}
+		\begin{column}{0.48\linewidth}
 			\begin{itemize}	
 				\item Microbeam radiation therapy~\cite{Laissue1998}
 				\begin{itemize}
-					\item Delivery of very high dose (\SIrange{100}{5000}{\gray}) in less than \SI{1}{\second}.
+					\item Delivery of \SIrange{100}{5000}{\gray} in less than \SI{1}{\second}
 					\item Excellent survival rate
+					\item Impairing vasculature, sparing tissue
 				\end{itemize}
 			\end{itemize}
 		\end{column}
-		\begin{column}{0.6\linewidth}
+		\begin{column}{0.48\linewidth}
 			\pgfmathsetlength{\imagewidth}{\imsize}%
 			\pgfmathsetlength{\imagescale}{\imagewidth/805}%
 			\def\x{100}% scalebar-x starting at golden ratio of image width of 805px = 497
@@ -171,13 +168,13 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Quantitative assessment}
+	\frametitle{Quantitative assessment of treatment}
 	\begin{itemize}
 		\item \emph{Problem:} Assessing radiation treatment
 		\begin{itemize}
 			\item Does the tumor volume decrease?
-			\item What happens to the supporting vessels (vessel ratio and vessel complexity)?
-			\item Intra-tumoral microvessel density (IMD, standardized assessment of tumor angiogenesis~\cite{Hasan2002})
+			\item What happens to the supporting vessels, e.g.\ vessel ratio and vessel complexity?
+			\item How is the standardized assessment of tumor angiogenesis, the Intra-tumoral microvessel density (IMD,~\cite{Hasan2002}) influenced?
 		\end{itemize}
 		\pause
 		\item \emph{Solution}: (\uct) 3D data
@@ -232,7 +229,7 @@
 			\begin{itemize}
 				\item \SI{\approx17}{\hour} scanning time per sample
 				\item \SI{\approx40}{\day} of continuous scanning
-				\item Tumor region reconstructions: \SI{\approx1.8}{\tera\byte} of data
+				\item Reconstructed data of tumor regions \SI{\approx1.8}{\tera\byte}
 			\end{itemize}
 			%\item Tumor region reconstructed% (NRecon 1.7.0.4, GPUReconServer 1.7.0, Ring Artifact Correction=20, Beam Hardening Correction \SI{50}{\percent}, Hamming filter)
 		\end{itemize}
@@ -262,12 +259,12 @@
 		\begin{column}[T]{0.6\linewidth}
 			\begin{itemize}
 				\item<1-> ROI extraction
-				\item<3-> Calculation of tumor area
+				\item<3-> Area \textrightarrow{} Tumor volume
 				\item<4-> Thresholding to separate blood vessels
 				\item<5-> Removal of \emph{large} structures \textrightarrow{} Vessel volume
 				\item<7-> Euclidean distance transformation
-				\item<8-> Calculation of vessel surface \textrightarrow{} Vessel complexity
-				\item<9-> Labeling/counting objects \textrightarrow{} IMD
+				\item<8-> Extraction of vessel surface \textrightarrow{} Vessel complexity
+				\item<9-> Labeling objects \textrightarrow{} IMD
 			\end{itemize}
 		\end{column}
 		\begin{column}[T]{0.4\linewidth}
@@ -303,7 +300,7 @@
 				\\
 				\begin{tikzpicture}[remember picture,overlay]%
 					\node[xshift=0.309\paperwidth,yshift=0.25\paperheight] at (current page.south west){%
-						\animategraphics[autoplay,palindrome,width=0.5\paperwidth,every=\everyframe]{24}{./movies/b51_hull/b51_bb_d16t06_threshold_0}{001}{361}%
+						\animategraphics[autoplay,loop,width=0.5\paperwidth,every=\everyframe]{24}{./movies/b51_hull/b51_bb_d16t06_threshold_0}{001}{361}%
 						};%
 				\end{tikzpicture}%
 			}
@@ -315,10 +312,9 @@
 				\\
 				\begin{tikzpicture}[remember picture,overlay]%
 					\node[xshift=0.309\paperwidth,yshift=0.25\paperheight] at (current page.south west){%
-						\animategraphics[autoplay,palindrome,width=0.5\paperwidth,every=\everyframe]{24}{./movies/b51_threshold/b51_bb_d16t06_threshold_0}{001}{361}%				
+						\animategraphics[autoplay,loop,width=0.5\paperwidth,every=\everyframe]{24}{./movies/b51_threshold/b51_bb_d16t06_threshold_0}{001}{361}%				
 					};%
 				\end{tikzpicture}%
-
 			}
 			\only<5>{%
 				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
@@ -328,7 +324,7 @@
 				\\
 				\begin{tikzpicture}[remember picture,overlay]%
 					\node[xshift=0.309\paperwidth,yshift=0.25\paperheight] at (current page.south west){%
-						\animategraphics[autoplay,palindrome,width=0.5\paperwidth,every=\everyframe]{24}{./movies/b51_overlay/b51_bb_d16t06_threshold_0}{001}{361}%				
+						\animategraphics[autoplay,loop,width=0.5\paperwidth,every=\everyframe]{24}{./movies/b51_overlay/b51_bb_d16t06_threshold_0}{001}{361}%				
 						};%
 				\end{tikzpicture}%
 			}%
@@ -340,7 +336,7 @@
 				\\
 				\begin{tikzpicture}[remember picture,overlay]%
 					\node[xshift=0.309\paperwidth,yshift=0.25\paperheight] at (current page.south west){%
-						\animategraphics[autoplay,palindrome,width=0.5\paperwidth,every=\everyframe]{24}{./movies/b51_cleaned/b51_bb_d16t06_threshold_0}{001}{361}%				
+						\animategraphics[autoplay,loop,width=0.5\paperwidth,every=\everyframe]{24}{./movies/b51_cleaned/b51_bb_d16t06_threshold_0}{001}{361}%				
 						};%
 				\end{tikzpicture}%
 			}%			
@@ -370,30 +366,28 @@
 \renewcommand{\imsize}{0.9\linewidth}
 \begin{frame}
 	\frametitle{Tumor volume}
-	\includegraphics[width=\imsize]{img/talk_tumor_volume_day}	
+	\includegraphics[width=\imsize]{img/talk_tumor_volume_day}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Vessel volume per tumor volume}
-	\includegraphics[width=\imsize]{img/talk_vessel_ratio_day}	
+	\includegraphics[width=\imsize]{img/talk_vessel_ratio_day}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Vessel surface (complexity)}
-	\includegraphics[width=\imsize]{img/talk_surface_day}	
+	\includegraphics[width=\imsize]{img/talk_surface_day}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Intra-tumoral microvessel density}
-	\includegraphics[width=\imsize]{img/talk_imd_day}	
+	\includegraphics[width=\imsize]{img/talk_imd_day}
 \end{frame}
 
 \section{Summary}
 \begin{frame}
 	\frametitle{Summary}
 	\begin{itemize}
-		\item High throughput scanning for prospective study
-		\item Automated quantitative assessment of sample properties
 		\item Microbeam radiation therapy
 		\begin{itemize}
 			\item Reduces tumor volume
@@ -403,7 +397,9 @@
 				\item Reduced Tumor \emph{micro}-vasculature (vessel volume per tumor volume)
 				\item Smaller Intra-tumoral microvessel density
 			\end{itemize}
-		\end{itemize}		
+		\end{itemize}
+		\item High throughput scanning for prospective study
+		\item Automated quantitative assessment of sample properties
 	\end{itemize}
 \end{frame}
 
@@ -412,7 +408,7 @@
 	\begin{columns}
 		\begin{column}{0.48\linewidth}
 	\begin{itemize}
-		\item<1-> Topographic and clinical Anatomy, namely
+		\item<1-> Topographic and clinical anatomy, namely
 		\begin{itemize}
 			\item<1-> Ruslan Hlushchuk
 			\item<1-> Marine Potez
